@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -27,9 +28,21 @@ public class MainFrame extends JFrame {
 
 	private MarqueePanel mp;
 	
+	private String str = "";
+	
 	public MainFrame() {
 
-		String str = "6,5,6,7,8,8,4/5,5,6,7";
+		String old_str = JOptionPane.showInputDialog("Inserisci la stringa");
+		String sec = JOptionPane.showInputDialog("Inserisci i secondi");
+		
+		SEC = Integer.valueOf(sec);
+		
+		String[] str_arr = old_str.split(",");
+		
+		for(int i = 0; i < str_arr.length; i++){
+			str = str + "       " + str_arr[i];
+		}
+		
 		mp = new MarqueePanel(str, 40);
 
 		setJFrameOnScreen();
@@ -139,7 +152,7 @@ public class MainFrame extends JFrame {
 			for (int i = 0; i < n; i++) {
 				sb.append(' ');
 			}
-			this.s = "        " + "    " + s + sb;
+			this.s = "   " + s + sb;
 			this.n = n;
 			label.setFont(new Font("Serif", Font.ITALIC, 72));
 			this.add(label);
