@@ -202,19 +202,19 @@ public class MainFrame extends JFrame {
 	int i = 0;
 
 	private void changeState() {
-		if (i < 4)
+		if (i < 4 || i == str.length + 4)
 			l1.setText("W");
 		else
 			l1.setText(str[i - 4]);
-		if (i < 3)
+		if (i < 3 || i == str.length + 3)
 			l2.setText("W");
 		else
 			l2.setText(str[i - 3]);
-		if (i < 2)
+		if (i < 2 || i == str.length + 2)
 			l3.setText("W");
 		else
 			l3.setText(str[i - 2]);
-		if (i == 0 || i == str.length - 1)
+		if (i == 0 || i == str.length + 1)
 			l4.setText("W");
 		else
 			l4.setText(str[i - 1]);
