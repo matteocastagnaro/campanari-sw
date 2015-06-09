@@ -9,8 +9,13 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,7 +29,7 @@ import java.util.TimerTask;
 
 public class MainFrame {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		new Frame();
 	}
 
@@ -32,7 +37,7 @@ public class MainFrame {
 
 @SuppressWarnings("serial")
 class Frame extends JFrame {
-	
+
 	private final Dimension screenSize = Toolkit.getDefaultToolkit()
 			.getScreenSize();
 
@@ -54,8 +59,8 @@ class Frame extends JFrame {
 	private JLabel l1;
 	private JLabel l2;
 	private JLabel l3;
-	private JLabel l4;
-	private JLabel l5;
+//	private JLabel l4;
+//	private JLabel l5;
 
 	private JLabel infolabel;
 
@@ -64,14 +69,13 @@ class Frame extends JFrame {
 	private JMenuItem vel = new JMenuItem("Velocità");
 	private JMenuItem str_jmenu = new JMenuItem("Stringa");
 
-
-	public Frame() {
+	public Frame() throws IOException {
 
 		timer = new Timer();
 
 		addString();
 		String sec = JOptionPane.showInputDialog("Inserisci i secondi");
-		
+
 		addSeconds(sec);
 
 		setJFrameOnScreen();
@@ -90,21 +94,15 @@ class Frame extends JFrame {
 		panel_fields.setLayout(new GridLayout());
 
 		l1 = new JLabel();
-		l1.setFont(new Font("Helvetica", Font.ITALIC | Font.BOLD, 150));
+		l1.setFont(new Font("Helvetica", Font.ITALIC | Font.BOLD, 200));
 		l1.setHorizontalAlignment(JLabel.CENTER);
 		l1.setForeground(Color.RED);
 		l2 = new JLabel();
-		l2.setFont(new Font("Helvetica", Font.ITALIC, 150));
+		l2.setFont(new Font("Helvetica", Font.ITALIC, 100));
 		l2.setHorizontalAlignment(JLabel.CENTER);
 		l3 = new JLabel();
-		l3.setFont(new Font("Helvetica", Font.ITALIC, 150));
+		l3.setFont(new Font("Helvetica", Font.ITALIC, 100));
 		l3.setHorizontalAlignment(JLabel.CENTER);
-		l4 = new JLabel();
-		l4.setFont(new Font("Helvetica", Font.ITALIC, 150));
-		l4.setHorizontalAlignment(JLabel.CENTER);
-		l5 = new JLabel();
-		l5.setFont(new Font("Helvetica", Font.ITALIC, 150));
-		l5.setHorizontalAlignment(JLabel.CENTER);
 
 		newPainting();
 
@@ -185,8 +183,6 @@ class Frame extends JFrame {
 		panel_fields.add(l1);
 		panel_fields.add(l2);
 		panel_fields.add(l3);
-		panel_fields.add(l4);
-		panel_fields.add(l5);
 
 		panel_central.add(panel_fields, BorderLayout.CENTER);
 		panel_central.add(infolabel, BorderLayout.SOUTH);
@@ -217,8 +213,6 @@ class Frame extends JFrame {
 		l1.setText("");
 		l2.setText("");
 		l3.setText("");
-		l4.setText("");
-		l5.setText("");
 	}
 
 	public void startPaiting() {
@@ -238,40 +232,30 @@ class Frame extends JFrame {
 	int i = 0;
 
 	private void changeState() {
-		if (i < 4 || i >= str.length + 4) {
+		if (i < 2 || i >= str.length + 2) {
 			l1.setText("");
 		} else {
-			l1.setText(str[i - 4]);
-		}
-		if (i < 3 || i >= str.length + 3) {
-			l2.setText("");
-		} else {
-			l2.setText(str[i - 3]);
-		}
-		if (i < 2 || i >= str.length + 2) {
-			l3.setText("");
-		} else {
-			l3.setText(str[i - 2]);
+			l1.setText(str[i - 2]);
 		}
 		if (i == 0 || i >= str.length + 1) {
-			l4.setText("");
+			l2.setText("");
 		} else {
-			l4.setText(str[i - 1]);
+			l2.setText(str[i - 1]);
 		}
 		if (i >= str.length) {
-			l5.setText("");
+			l3.setText("");
 		} else {
-			l5.setText(str[i]);
+			l3.setText(str[i]);
 		}
 
-		if (i == str.length + 4) {
+		if (i == str.length + 2) {
 			JOptionPane.showMessageDialog(this,
 					"La stringa è stata completata correttamente!", "Fine",
 					JOptionPane.WARNING_MESSAGE);
 			pause();
 			i = -1;
 			newPainting();
-			
+
 			modifica.setEnabled(true);
 
 			pauseb.setEnabled(false);
@@ -282,8 +266,8 @@ class Frame extends JFrame {
 		i++;
 
 	}
-	
-	private void addString(){
+
+	private void addString() {
 		old_str = JOptionPane.showInputDialog("Inserisci la stringa");
 		while (old_str.equals("")) {
 			JOptionPane.showMessageDialog(this,
@@ -293,8 +277,8 @@ class Frame extends JFrame {
 		}
 		str = old_str.split(",");
 	}
-	
-	private void addSeconds(String sec){
+
+	private void addSeconds(String sec) {
 		if (sec.equals("") || sec.equals("0")) {
 			JOptionPane.showMessageDialog(this,
 					"Verrà settato di default un delay di 1 sec", "Attenzione",
