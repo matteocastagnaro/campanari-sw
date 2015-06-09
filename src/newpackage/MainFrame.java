@@ -14,6 +14,7 @@ import java.util.Timer;
 
 import javafx.scene.control.TextArea;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,11 +24,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import java.awt.Toolkit;
-import java.util.Timer;
 import java.util.TimerTask;
-
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
@@ -45,15 +42,23 @@ public class MainFrame extends JFrame {
 	private String[] str;
 
 	private String old_str;
+	
+	private JButton startb = new JButton("START");
+	private JButton pauseb = new JButton("PAUSE");
+	private JButton stopb = new JButton("STOP");
 
 	private JLabel l1;
 	private JLabel l2;
 	private JLabel l3;
 	private JLabel l4;
 	private JLabel l5;
-
-	private int pos_on_string;
-	private int pos_on_label;
+	
+	private JMenuBar mb = new JMenuBar();
+	private JMenu modifica = new JMenu("Modifica");
+	private JMenuItem vel = new JMenuItem("Velocità");
+	private JMenuItem str_jmenu = new JMenuItem("Stringa");
+	
+	private JLabel label_info;
 
 	public MainFrame() {
 
@@ -97,12 +102,25 @@ public class MainFrame extends JFrame {
 
 		newPainting();
 
-		JButton startb = new JButton("START");
-		JButton pauseb = new JButton("PAUSE");
-		JButton stopb = new JButton("STOP");
-
 		pauseb.setEnabled(false);
 		stopb.setEnabled(false);
+		
+		vel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SEC = Integer.valueOf(JOptionPane.showInputDialog("Inserisci i secondi")) * 1000;
+				label_info = new JLabel("Secondi: " + SEC/1000 + "  |  Stringa: " + old_str);
+			}
+		});
+		
+		str_jmenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				old_str = JOptionPane.showInputDialog("Inserisci la stringa");
+			}
+		});
 
 		startb.addActionListener(new ActionListener() {
 
@@ -112,6 +130,7 @@ public class MainFrame extends JFrame {
 				stopb.setEnabled(true);
 				pauseb.setEnabled(true);
 				startPaiting();
+				modifica.setEnabled(false);
 			}
 		});
 
@@ -136,13 +155,14 @@ public class MainFrame extends JFrame {
 				pause();
 				newPainting();
 				i = 0;
+				modifica.setEnabled(true);
 			}
 		});
-
+		
 		panel_buttons.add(startb);
 		panel_buttons.add(pauseb);
 		panel_buttons.add(stopb);
-
+		
 		panel_central.add(l1);
 		panel_central.add(l2);
 		panel_central.add(l3);
@@ -152,19 +172,18 @@ public class MainFrame extends JFrame {
 		add(panel_buttons, BorderLayout.SOUTH);
 		add(panel_central, BorderLayout.CENTER);
 		add(MyMenuBar(), BorderLayout.NORTH);
+		mb.add(Box.createGlue());
+		label_info = new JLabel("Secondi: " + SEC/1000 + "  |  Stringa: " + old_str);
+		mb.add(label_info);
 		setVisible(true);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public JMenuBar MyMenuBar() {
-		JMenuBar mb = new JMenuBar();
-		JMenu file = new JMenu("Modifica");
-		JMenuItem vel = new JMenuItem("Velocità");
-		JMenuItem str = new JMenuItem("Stringa");
-		file.add(vel);
-		file.add(str);
-		mb.add(file);
+		modifica.add(vel);
+		modifica.add(str_jmenu);
+		mb.add(modifica);
 		return mb;
 	}
 
@@ -202,30 +221,58 @@ public class MainFrame extends JFrame {
 	int i = 0;
 
 	private void changeState() {
-		if (i < 4 || i == str.length + 4)
+		if (i < 4 || i >= str.length + 4) {
 			l1.setText("W");
-		else
+			System.out.println("Setta l1 a W");
+		} else {
 			l1.setText(str[i - 4]);
-		if (i < 3 || i == str.length + 3)
+			System.out.println("Setta l1 a " + str[i - 4] + "posizione: "
+					+ (i - 4));
+		}
+		if (i < 3 || i >= str.length + 3) {
 			l2.setText("W");
-		else
+			System.out.println("Setta l2 a W");
+		} else {
 			l2.setText(str[i - 3]);
-		if (i < 2 || i == str.length + 2)
+			System.out.println("Setta l1 a " + str[i - 3] + "posizione: "
+					+ (i - 3));
+		}
+		if (i < 2 || i >= str.length + 2) {
 			l3.setText("W");
-		else
+			System.out.println("Setta l3 a W");
+		} else {
 			l3.setText(str[i - 2]);
-		if (i == 0 || i == str.length + 1)
+			System.out.println("Setta l1 a " + str[i - 2] + "posizione: "
+					+ (i - 2));
+		}
+		if (i == 0 || i >= str.length + 1) {
 			l4.setText("W");
-		else
+			System.out.println("Setta l4 a W");
+		} else {
 			l4.setText(str[i - 1]);
-		if(i == str.length)
+			System.out.println("Setta l1 a " + str[i - 1] + "posizione: "
+					+ (i - 1));
+		}
+		if (i >= str.length) {
 			l5.setText("W");
-		else
+			System.out.println("Setta l5 a W");
+		} else {
 			l5.setText(str[i]);
+			System.out.println("Setta l1 a " + str[i] + "posizione: " + i);
+		}
 
-		// if(i == str.length){
-		// System.out.println("Stringa finita");
-		// }
+		if (i == str.length + 4) {
+			JOptionPane.showMessageDialog(this,
+				    "La stringa è stata completata correttamente!",
+				    "Inane warning",
+				    JOptionPane.WARNING_MESSAGE);
+			pause();
+			newPainting();
+			
+			pauseb.setEnabled(false);
+			stopb.setEnabled(false);
+			startb.setEnabled(true);
+		}
 
 		i++;
 
