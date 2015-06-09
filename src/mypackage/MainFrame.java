@@ -22,9 +22,17 @@ import javax.swing.JPanel;
 
 import java.util.TimerTask;
 
-@SuppressWarnings("serial")
-public class MainFrame extends JFrame {
+public class MainFrame {
 
+	public static void main(String[] args) {
+		new Frame();
+	}
+
+}
+
+@SuppressWarnings("serial")
+class Frame extends JFrame {
+	
 	private final Dimension screenSize = Toolkit.getDefaultToolkit()
 			.getScreenSize();
 
@@ -57,7 +65,7 @@ public class MainFrame extends JFrame {
 	private JMenuItem str_jmenu = new JMenuItem("Stringa");
 
 
-	public MainFrame() {
+	public Frame() {
 
 		timer = new Timer();
 
@@ -107,6 +115,7 @@ public class MainFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String sec = JOptionPane.showInputDialog("Inserisci i secondi");
 				addSeconds(sec);
 				infolabel.setText("Secondi: " + SEC / 1000 + "   |   Stringa: "
 						+ old_str);
