@@ -1,4 +1,5 @@
-import newpackage.MainFrame;
+package mypackage;
+import mypackage.MainFrame;
 
 
 public class Main {
