@@ -9,13 +9,9 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -71,20 +67,21 @@ class Frame extends JFrame {
 	
 	private String old_str_replaced;
 
+	private String sec;
+
+	private String CODE_VERSION = "1.3";
+	
 	public Frame() throws IOException {
 
 		timer = new Timer();
 
 		addString();
-		String sec = JOptionPane.showInputDialog("Inserisci i secondi");
-
-		addSeconds(sec);
+		sec = null; 
+		
+		while(sec == null)
+			sec = JOptionPane.showInputDialog("Inserisci i secondi");
 
 		setJFrameOnScreen();
-
-		setLayout(new BorderLayout());
-
-		setTitle("Campanari v1.2");
 
 		JPanel panel_buttons = new JPanel();
 		panel_buttons.setLayout(new FlowLayout());
@@ -94,17 +91,8 @@ class Frame extends JFrame {
 
 		JPanel panel_fields = new JPanel();
 		panel_fields.setLayout(new GridLayout());
-
-		l1 = new JLabel();
-		l1.setFont(new Font("Helvetica", Font.ITALIC | Font.BOLD, 200));
-		l1.setHorizontalAlignment(JLabel.CENTER);
-		l1.setForeground(Color.RED);
-		l2 = new JLabel();
-		l2.setFont(new Font("Helvetica", Font.ITALIC, 100));
-		l2.setHorizontalAlignment(JLabel.CENTER);
-		l3 = new JLabel();
-		l3.setFont(new Font("Helvetica", Font.ITALIC, 100));
-		l3.setHorizontalAlignment(JLabel.CENTER);
+		
+		setLabel();
 
 		newPainting();
 
@@ -115,10 +103,12 @@ class Frame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String sec = JOptionPane.showInputDialog("Inserisci i secondi");
-				addSeconds(sec);
+				String seconds = null;
+				while(seconds == null)
+					seconds = JOptionPane.showInputDialog("Inserisci i secondi");
+				addSeconds(seconds);
 				old_str_replaced = old_str.replace(",", " ");
-				infolabel.setText("Secondi: " + sec + "   |   Stringa: "
+				infolabel.setText("Secondi: " + seconds + "   |   Stringa: "
 						+ old_str_replaced);
 			}
 		});
@@ -177,6 +167,8 @@ class Frame extends JFrame {
 				+ old_str_replaced);
 		infolabel.setHorizontalAlignment(JLabel.CENTER);
 
+		addSeconds(sec);
+		
 		JLabel titlelabel = new JLabel("KARAOKE CAMPANARI");
 		titlelabel.setFont(new Font("Helvetica", Font.ITALIC, 20));
 		titlelabel.setHorizontalAlignment(JLabel.CENTER);
@@ -202,6 +194,19 @@ class Frame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	private void setLabel() {
+		l1 = new JLabel();
+		l1.setFont(new Font("Helvetica", Font.ITALIC | Font.BOLD, 200));
+		l1.setHorizontalAlignment(JLabel.CENTER);
+		l1.setForeground(Color.RED);
+		l2 = new JLabel();
+		l2.setFont(new Font("Helvetica", Font.ITALIC, 100));
+		l2.setHorizontalAlignment(JLabel.CENTER);
+		l3 = new JLabel();
+		l3.setFont(new Font("Helvetica", Font.ITALIC, 100));
+		l3.setHorizontalAlignment(JLabel.CENTER);
+	}
+
 	public JMenuBar MyMenuBar() {
 		modifica.add(vel);
 		modifica.add(str_jmenu);
@@ -213,6 +218,8 @@ class Frame extends JFrame {
 		int x = (screenSize.width - SCREEN_WIDTH) / 2;
 		int y = (screenSize.height - SCREEN_HEIGHT) / 2;
 		setBounds(x, y, SCREEN_WIDTH, SCREEN_HEIGHT);
+		setLayout(new BorderLayout());
+		setTitle("Campanari v" + CODE_VERSION );
 	}
 
 	public void newPainting() {
@@ -274,12 +281,18 @@ class Frame extends JFrame {
 	}
 
 	private void addString() {
-		old_str = JOptionPane.showInputDialog("Inserisci la stringa");
+		String string = null;
+		while(string == null)
+			string = JOptionPane.showInputDialog("Inserisci la stringa");
+		old_str = string;
 		while (old_str.equals("")) {
 			JOptionPane.showMessageDialog(this,
 					"Devi inserire almeno un carattere",
 					"Errore: stringa non trovata", JOptionPane.ERROR_MESSAGE);
-			old_str = JOptionPane.showInputDialog("Inserisci la stringa");
+			string = null;
+			while(string == null)
+				string = JOptionPane.showInputDialog("Inserisci la stringa");
+			old_str = string;
 		}
 		str = old_str.split(",");
 	}
@@ -290,6 +303,8 @@ class Frame extends JFrame {
 					"Verrà settato di default un delay di 1 sec", "Attenzione",
 					JOptionPane.WARNING_MESSAGE);
 			SEC = 1000;
+			infolabel.setText("Secondi: 1   |   Stringa: "
+					+ old_str_replaced);
 		} else
 			SEC = Integer.valueOf((int) (Double.valueOf(sec) * 1000.0));
 	}
