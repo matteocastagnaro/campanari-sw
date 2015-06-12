@@ -55,8 +55,6 @@ class Frame extends JFrame {
 	private JLabel l1;
 	private JLabel l2;
 	private JLabel l3;
-//	private JLabel l4;
-//	private JLabel l5;
 
 	private JLabel infolabel;
 
@@ -237,7 +235,7 @@ class Frame extends JFrame {
 				changeState();
 				repaint();
 			}
-		}, 0, SEC); // or 10000 which is 10 s.
+		}, 0, SEC);
 	}
 
 	public void pause() {
