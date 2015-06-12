@@ -115,7 +115,7 @@ class Frame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String sec = JOptionPane.showInputDialog("Inserisci i secondi");
 				addSeconds(sec);
-				infolabel.setText("Secondi: " + SEC / 1000 + "   |   Stringa: "
+				infolabel.setText("Secondi: " + sec + "   |   Stringa: "
 						+ old_str);
 			}
 		});
@@ -125,7 +125,7 @@ class Frame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				addString();
-				infolabel.setText("Secondi: " + SEC / 1000 + "   |   Stringa: "
+				infolabel.setText("Secondi: " + sec + "   |   Stringa: "
 						+ old_str);
 			}
 		});
@@ -167,7 +167,7 @@ class Frame extends JFrame {
 			}
 		});
 
-		infolabel = new JLabel("Secondi: " + SEC / 1000 + "   |   Stringa: "
+		infolabel = new JLabel("Secondi: " + sec + "   |   Stringa: "
 				+ old_str);
 		infolabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -285,7 +285,7 @@ class Frame extends JFrame {
 					JOptionPane.WARNING_MESSAGE);
 			SEC = 1000;
 		} else
-			SEC = Integer.valueOf(sec) * 1000;
+			SEC = Integer.valueOf((int) (Double.valueOf(sec) * 1000.0));
 	}
 
 }
