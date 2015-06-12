@@ -68,6 +68,8 @@ class Frame extends JFrame {
 	private JMenu modifica = new JMenu("Modifica");
 	private JMenuItem vel = new JMenuItem("Velocità");
 	private JMenuItem str_jmenu = new JMenuItem("Stringa");
+	
+	private String old_str_replaced;
 
 	public Frame() throws IOException {
 
@@ -115,8 +117,9 @@ class Frame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String sec = JOptionPane.showInputDialog("Inserisci i secondi");
 				addSeconds(sec);
+				old_str_replaced = old_str.replace(",", " ");
 				infolabel.setText("Secondi: " + sec + "   |   Stringa: "
-						+ old_str);
+						+ old_str_replaced);
 			}
 		});
 
@@ -125,8 +128,9 @@ class Frame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				addString();
+				old_str_replaced = old_str.replace(",", " ");
 				infolabel.setText("Secondi: " + sec + "   |   Stringa: "
-						+ old_str);
+						+ old_str_replaced);
 			}
 		});
 
@@ -166,9 +170,11 @@ class Frame extends JFrame {
 				modifica.setEnabled(true);
 			}
 		});
+		
+		old_str_replaced = old_str.replace(",", " ");
 
 		infolabel = new JLabel("Secondi: " + sec + "   |   Stringa: "
-				+ old_str);
+				+ old_str_replaced);
 		infolabel.setHorizontalAlignment(JLabel.CENTER);
 
 		JLabel titlelabel = new JLabel("KARAOKE CAMPANARI");
