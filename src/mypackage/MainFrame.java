@@ -69,7 +69,7 @@ class Frame extends JFrame {
 
 	private String sec;
 
-	private String CODE_VERSION = "1.3";
+	private String CODE_VERSION = "1.4";
 	
 	public Frame() throws IOException {
 
@@ -108,6 +108,8 @@ class Frame extends JFrame {
 					seconds = JOptionPane.showInputDialog("Inserisci i secondi");
 				addSeconds(seconds);
 				old_str_replaced = old_str.replace(",", " ");
+				if(seconds.equals(""))
+					seconds = "1";
 				infolabel.setText("Secondi: " + seconds + "   |   Stringa: "
 						+ old_str_replaced);
 			}
