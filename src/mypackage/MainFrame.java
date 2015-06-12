@@ -82,7 +82,7 @@ class Frame extends JFrame {
 
 		setLayout(new BorderLayout());
 
-		setTitle("Campanari v1.0");
+		setTitle("Campanari v1.1");
 
 		JPanel panel_buttons = new JPanel();
 		panel_buttons.setLayout(new FlowLayout());
