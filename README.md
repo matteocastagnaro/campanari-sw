@@ -1,6 +1,5 @@
 # karaoke-campanari v1.4
-Software di karaoke per campanari.<br/>
-[Download .jar] (https://github.com/matteocastagnaro/karaoke-campanari/blob/master/src/jar/Campanari.jar?raw=true)
+Software di karaoke per campanari.
 
 ## Utilizzo
 ### Prima finestra
@@ -26,6 +25,9 @@ Il tasto MODIFICA nella barra degli strumenti in alto è attivato soltando quand
 non è attivo (o in pausa). Tramite quel bottone è possibile modificare la stringa inserita e l'intervallo della suonata.<br/>
 Il tasto STOP termina la sequenza di numeri inserita e resetta le impostazioni iniziali per far ripartire la sequenza iniziale
 da zero.
+
+## Download
+[Download .jar] (https://github.com/matteocastagnaro/karaoke-campanari/blob/master/src/jar/Campanari.jar?raw=true)
 
 ## Crediti
 Matteo Castagnaro - Developer [@matteocastagnaro] (https://github.com/matteocastagnaro)<br/>
