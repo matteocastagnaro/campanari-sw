@@ -1,5 +1,6 @@
 # karaoke-campanari v1.4
 Software di karaoke per campanari.
+[Download .jar] (https://github.com/matteocastagnaro/karaoke-campanari/blob/master/src/jar/Campanari.jar)
 
 ## Utilizzo
 ### Prima finestra
