@@ -1,7 +1,7 @@
 # karaoke-campanari v1.4
 Software di karaoke per campanari.
 
-## Usage
+## Utilizzo
 ### Prima finestra
 Inserire la stringa corrispondente alle campane da suonare separate da virgola. <br />
 Es. 1,2,3,4<br />
